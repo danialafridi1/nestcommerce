@@ -14,4 +14,7 @@ export class UsersService {
     getUserById(id: number) {
         return this.users.find(user=>user.id === id);
     }
+    createUser(user: {id:number, name: string, gender: string, email: string, isMarried: boolean}) {
+        this.users.push(user);
+    }
 }

@@ -1,6 +1,7 @@
-import { Controller, DefaultValuePipe, Get, Param, ParseBoolPipe, ParseIntPipe, Query } from '@nestjs/common';
+import { Body, Controller, DefaultValuePipe, Get, Param, ParseBoolPipe, ParseIntPipe, Post, Query } from '@nestjs/common';
 import { GetUserParamDTO } from './dtos/get-users-param.dto';
 import { UsersService } from './users.service';
+import { CreateUserDTO } from './dtos/create-user.dto';
 
 @Controller('users')
 export class UsersController {
@@ -20,6 +21,12 @@ export class UsersController {
 @Get("user/:id")
 getUserById(@Param('id', ParseIntPipe) id: number) {
         return this.userService.getUserById(id);
+}
+    @Post()
+    createUser(@Body() createUserDTO: CreateUserDTO) {
+        console.log(createUserDTO);
+        this.userService.createUser(createUserDTO);
+        return 'User created successfully!';
     }
     
 }
