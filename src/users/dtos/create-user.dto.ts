@@ -1,5 +1,5 @@
 import {IsEmail,IsEnum, IsNotEmpty, IsNumber, IsOptional, IsPhoneNumber, IsString, MinLength } from "class-validator";
-enum UserRole {
+export enum UserRole {
   ADMIN = 'admin',
   VENDOR = 'vendor',
   CUSTOMER = 'customer',
