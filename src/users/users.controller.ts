@@ -6,17 +6,12 @@ import { CreateUserDTO } from './dtos/create-user.dto';
 @Controller('users')
 export class UsersController {
     constructor(private userService:UsersService){}
-    @Get(":isMarried?")
+    @Get()
     getAllUsers(@Query('limit',new DefaultValuePipe(10), ParseIntPipe) limit: number,
         @Query('page',new DefaultValuePipe(1), ParseIntPipe) page: number,
-        @Param() param: GetUserParamDTO) {
+        ) {
         const users = this.userService.getAllUsers();
-    console.log("Type of param.isMarried:", typeof param.isMarried);
-    console.log("Value of param.isMarried:", param.isMarried);
-
-    return param.isMarried !== undefined
-        ? users.filter(user => user.isMarried === param.isMarried)
-        : users;
+   return users;
     }
 @Get("user/:id")
 getUserById(@Param('id', ParseIntPipe) id: number) {
