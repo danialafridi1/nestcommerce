@@ -11,7 +11,7 @@ export class UsersController {
         @Query('page',new DefaultValuePipe(1), ParseIntPipe) page: number,
         ) {
         const users = this.userService.getAllUsers();
-   return users;
+   return users.slice((page-1)*limit, page*limit);
     }
 @Get(":id")
 getUserById(@Param('id', ParseIntPipe) id: number) {
@@ -19,7 +19,6 @@ getUserById(@Param('id', ParseIntPipe) id: number) {
 }
     @Post()
     createUser(@Body() createUserDTO: CreateUserDTO) {
-        console.log(createUserDTO);
         this.userService.createUser(createUserDTO);
         return 'User created successfully!';
     }
