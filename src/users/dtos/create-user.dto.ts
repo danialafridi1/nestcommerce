@@ -1,6 +1,10 @@
 import { Transform } from "class-transformer";
-import { IsBoolean, IsEmail, IsNotEmpty, IsNumber, IsOptional, IsString, MinLength } from "class-validator";
-
+import { IsBoolean, IsEmail,IsEnum, IsNotEmpty, IsNumber, IsOptional, IsPhoneNumber, IsString, MinLength } from "class-validator";
+enum UserRole {
+  ADMIN = 'admin',
+  VENDOR = 'vendor',
+  CUSTOMER = 'customer',
+}
 export class CreateUserDTO {
     @IsNumber()
     id: number;
@@ -11,9 +15,14 @@ export class CreateUserDTO {
     @IsEmail()
     email: string;
     @IsString()
-        @IsOptional()
-    gender: string;
-    @IsBoolean()
-    isMarried: boolean;
+    @IsNotEmpty()
+    @MinLength(6)
+    password: string;
+    @IsPhoneNumber()
+     @IsOptional()
+    phone: string;
+    @IsEnum(UserRole)
+    role:UserRole;
+  
 
 }
