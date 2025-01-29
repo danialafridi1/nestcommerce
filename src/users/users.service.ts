@@ -2,10 +2,10 @@ import { Injectable } from '@nestjs/common';
 
 @Injectable()
 export class UsersService {
-     users: {id:number, name: string, gender: string, email: string, isMarried: boolean}[] = [
-         { id: 1, name: "John", gender: "male", email: "john@gmail.com", isMarried: true },
-         { id: 2, name: "Doe ", gender: "female", email: " Doe@gmail.com", isMarried: false },
-         { id: 3, name: "Laura", gender: "male", email: " Lara@gmail.com", isMarried: true },
+     users: {id:number, name: string, phone: string, email: string, password: string}[] = [
+         { id: 1, name: "John", phone: "123456789", email: "john@gmail.com", password: "123456" },
+         { id: 2, name: "Doe ", phone: "123456789", email: " Doe@gmail.com", password: "123456" },
+         { id: 3, name: "Laura", phone: "123456789", email: " Lara@gmail.com", password: "123456" },
         
     ]
     getAllUsers(): any[] {
@@ -14,7 +14,7 @@ export class UsersService {
     getUserById(id: number) {
         return this.users.find(user=>user.id === id);
     }
-    createUser(user: {id:number, name: string, gender: string, email: string, isMarried: boolean}) {
+    createUser(user: {id:number, name: string, phone: string, email: string, password: string}) {
         this.users.push(user);
     }
 }

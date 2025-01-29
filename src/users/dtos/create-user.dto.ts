@@ -1,5 +1,4 @@
-import { Transform } from "class-transformer";
-import { IsBoolean, IsEmail,IsEnum, IsNotEmpty, IsNumber, IsOptional, IsPhoneNumber, IsString, MinLength } from "class-validator";
+import {IsEmail,IsEnum, IsNotEmpty, IsNumber, IsOptional, IsPhoneNumber, IsString, MinLength } from "class-validator";
 enum UserRole {
   ADMIN = 'admin',
   VENDOR = 'vendor',
@@ -18,7 +17,7 @@ export class CreateUserDTO {
     @IsNotEmpty()
     @MinLength(6)
     password: string;
-    @IsPhoneNumber()
+    @IsString()
      @IsOptional()
     phone: string;
     @IsEnum(UserRole)
