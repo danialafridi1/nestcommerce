@@ -13,7 +13,7 @@ export class UsersController {
         const users = this.userService.getAllUsers();
    return users;
     }
-@Get("user/:id")
+@Get(":id")
 getUserById(@Param('id', ParseIntPipe) id: number) {
         return this.userService.getUserById(id);
 }
