@@ -5,13 +5,12 @@ export enum UserRole {
   CUSTOMER = 'customer',
 }
 export class CreateUserDTO {
-    @IsNumber()
-    id: number;
     @IsString()
     @IsNotEmpty({message: "Please enter your name"})
         @MinLength(3, { message: "Name is too short" })
     name: string;
     @IsEmail()
+    @IsNotEmpty({ message: "Please enter your email" })
     email: string;
     @IsString()
     @IsNotEmpty()

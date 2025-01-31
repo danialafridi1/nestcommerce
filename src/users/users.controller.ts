@@ -7,11 +7,11 @@ import { CreateUserDTO } from './dtos/create-user.dto';
 export class UsersController {
     constructor(private userService:UsersService){}
     @Get(":role?")
-    getAllUsers(@Query('limit',new DefaultValuePipe(10), ParseIntPipe) limit: number,
+    async getAllUsers(@Query('limit',new DefaultValuePipe(10), ParseIntPipe) limit: number,
         @Query('page', new DefaultValuePipe(1), ParseIntPipe) page: number,
         @Param() param: GetUserParamDTO,
         ) {
-        let users = this.userService.getAllUsers();
+        let users =await this.userService.getAllUsers();
         if (param.role) {
             users = users.filter(user => user.role === param.role);
         }
@@ -21,12 +21,11 @@ export class UsersController {
     }
 @Get(":id")
 getUserById(@Param('id', ParseIntPipe) id: number) {
-        return this.userService.getUserById(id);
+       // return this.userService.getUserById(id);
 }
     @Post()
     createUser(@Body() createUserDTO: CreateUserDTO) {
-        this.userService.createUser(createUserDTO);
-        return 'User created successfully!';
+       return this.userService.createUser(createUserDTO);
     }
     
 }
