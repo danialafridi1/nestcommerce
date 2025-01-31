@@ -19,9 +19,9 @@ export class UsersController {
         return users.slice((page - 1) * limit, page * limit);
         
     }
-@Get(":id")
+@Get("user/:id")
 getUserById(@Param('id', ParseIntPipe) id: number) {
-       // return this.userService.getUserById(id);
+        return this.userService.getUserById(id);
 }
     @Post()
     createUser(@Body() createUserDTO: CreateUserDTO) {
