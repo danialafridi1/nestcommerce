@@ -1,4 +1,5 @@
 import { TypeOrmModuleOptions } from '@nestjs/typeorm';
+import { Product } from 'src/product/product.entity';
 import { User } from 'src/users/user.entity';
 
 export default (): TypeOrmModuleOptions => ({
@@ -9,8 +10,10 @@ export default (): TypeOrmModuleOptions => ({
     password: process.env.DATABASE_PASSWORD || 'password',
     database: process.env.DATABASE_NAME || 'mydb',
     synchronize: true,
-    entities: [User],
-    logging: true,
+    entities: [User,Product],
+  // logging: true,
+  // logger: 'advanced-console',
+    
     
     
 })

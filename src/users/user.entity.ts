@@ -1,5 +1,6 @@
-import { Column, CreateDateColumn, Entity, PrimaryGeneratedColumn, UpdateDateColumn } from "typeorm";
+import { Column, CreateDateColumn, Entity, OneToMany, PrimaryGeneratedColumn, UpdateDateColumn } from "typeorm";
 import { UserRole } from "./dtos/create-user.dto";
+import { Product } from "src/product/product.entity";
 
 @Entity()
 export class User{ 
@@ -29,6 +30,8 @@ export class User{
     phone: string;
     @Column({ default: UserRole.CUSTOMER })
     role: UserRole;
+    @OneToMany(() => Product, product => product.vendor)  // The inverse side of the relationship
+    products: Product[];
     @CreateDateColumn() // Auto-set on creation
   createdAt: Date;
 
