@@ -1,17 +1,13 @@
-import { Column, CreateDateColumn, Entity, OneToMany, PrimaryGeneratedColumn, UpdateDateColumn } from "typeorm";
+import { Column, CreateDateColumn, Entity, JoinColumn, OneToMany, OneToOne, PrimaryGeneratedColumn, UpdateDateColumn } from "typeorm";
 import { UserRole } from "./dtos/create-user.dto";
 import { Product } from "src/product/product.entity";
+import { Profile } from "src/profile/profile.entity";
 
 @Entity()
 export class User{ 
     @PrimaryGeneratedColumn()
     id: number;
-    @Column({
-        type: "varchar",
-        length: 100,
-        nullable: false
-    })
-    name: string;
+   
     @Column({
         unique: true,
         nullable: false,
@@ -20,18 +16,15 @@ export class User{
     email: string;
     @Column()
     password: string;
-    @Column(
-        {
-            type: "varchar",
-            nullable: true,
-            length: 20
-        }
-    )
-    phone: string;
+  
     @Column({ default: UserRole.CUSTOMER })
     role: UserRole;
-    @OneToMany(() => Product, product => product.vendor)  // The inverse side of the relationship
-    products: Product[];
+    @OneToMany(() => Product, product => product.vendor,)  // The inverse side of the relationship
+    products?: Product[];
+
+    @OneToOne(() => Profile, profile => profile)
+        @JoinColumn()
+    profile? :Profile
     @CreateDateColumn() // Auto-set on creation
   createdAt: Date;
 
