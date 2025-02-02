@@ -22,7 +22,9 @@ export class User{
     @OneToMany(() => Product, product => product.vendor,)  // The inverse side of the relationship
     products?: Product[];
 
-    @OneToOne(() => Profile, profile => profile)
+    @OneToOne(() => Profile, profile => profile, {
+        cascade:['insert']
+    })
         @JoinColumn()
     profile? :Profile
     @CreateDateColumn() // Auto-set on creation

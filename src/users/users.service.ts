@@ -23,26 +23,21 @@ export class UsersService {
   }
 
     public async createUser(userDto: CreateUserDTO) {
-        // let create user profilee with default value if not provided
-        userDto.profile = userDto.profile ?? {}
-        let profile = this.profileRepository.create(userDto.profile);
-       profile = await this.profileRepository.save(profile);
-
-
-    // validate if user already exists with given email
-    const user = await this.userRepository.findOne({
-      where: { email: userDto.email }
-    });
-    if (user) {
-      return "User already exists with this email";
+      // validate if user already exists with given email
+      const user = await this.userRepository.findOne({
+        where: { email: userDto.email }
+      });
+      if (user) {
+        return "User already exists with this email";
+      }
+      // let create user profilee with default value if not provided
+      userDto.profile = userDto.profile ?? {};
+     
+      // hash password
+      userDto.password = await bcrypt.hash(userDto.password, 10);
+      // create user with given details
+      let newUser = this.userRepository.create(userDto);
+      newUser = await this.userRepository.save(newUser);
+      return newUser;
     }
-    // hash password
-    userDto.password = await bcrypt.hash(userDto.password, 10);
-    // create user with given details
-        let newUser = this.userRepository.create(userDto);
-        newUser.profile = profile;
-    newUser = await this.userRepository.save(newUser);
-        return newUser;
-        
-  }
 }
